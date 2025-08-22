@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Facebook – log in or sign up</title>
+  <meta name="description" content="A clean, educational clone of the Facebook login layout using only HTML, CSS and a bit of JS." />
+  <style>
+    :root{
+      --fb-blue:#1877f2;
+      --fb-green:#42b72a;
+      --text:#1c1e21;
+      --muted:#606770;
+      --bg:#f0f2f5;
+      --card:#ffffff;
+      --border:#dddfe2;
+      --shadow:0 2px 12px rgba(0,0,0,.08);
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+      color:var(--text);
+      background:var(--bg);
+      display:flex; align-items:center; justify-content:center;
+      min-height:100vh;
+    }
+
+    /* Layout */
+    .wrap{
+      width:min(1100px, 100%);
+      padding:48px 16px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items:center;
+      gap:40px;
+    }
+
+    /* Left column */
+    .brand{max-width:520px}
+    .logo{
+      display:flex; align-items:flex-end; gap:14px; margin-bottom:12px;
+    }
+    .logo-word {
+      font-size:56px; font-weight:800; line-height:1; letter-spacing:-.02em;
+      color:var(--fb-blue);
+    }
+    .logo-mark{
+      width:64px; height:64px; border-radius:14px; background:var(--fb-blue); display:grid; place-items:center;
+      box-shadow: var(--shadow);
+    }
+    .logo-mark svg { fill:#fff; width:34px; height:34px; }
+    .tagline{ font-size:28px; line-height:1.2; color:#1c1e21; }
+
+    /* Card */
+    .card{
+      width:min(420px, 100%);
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      padding:20px 16px 16px;
+      border:1px solid var(--border);
+    }
+    form{display:grid; gap:12px}
+
+    .field{display:grid; gap:6px}
+    label{font-size:13px; color:var(--muted)}
+    input[type="text"], input[type="email"], input[type="password"]{
+      width:100%; font-size:17px; padding:14px 14px; border-radius:8px; border:1px solid var(--border); outline:none; background:#fff;
+    }
+    input:focus{border-color:var(--fb-blue); box-shadow:0 0 0 3px rgba(24,119,242,.15)}
+
+    .btn{
+      appearance:none; -webkit-appearance:none; border:0; border-radius:8px; padding:12px 16px; font-weight:700; font-size:18px; cursor:pointer;
+    }
+    .btn-primary{background:var(--fb-blue); color:#fff}
+    .btn-primary:active{transform:translateY(1px)}
+    .btn-secondary{background:var(--fb-green); color:#fff}
+
+    .row{display:flex; align-items:center; gap:10px}
+    .row-between{display:flex; align-items:center; justify-content:space-between}
+
+    .forgot{display:block; text-align:center; color:var(--fb-blue); text-decoration:none; font-size:14px; padding:6px 0}
+    .forgot:hover{text-decoration:underline}
+
+    .hr{height:1px; background:var(--border); margin:8px 0 10px}
+
+    .create{text-align:center}
+
+    /* footer note under card */
+    .note{font-size:14px; color:#606770; margin-top:24px; text-align:center}
+    .note a{color:var(--text); font-weight:600; text-decoration:none}
+    .note a:hover{text-decoration:underline}
+
+    /* Accessibility helpers */
+    .visually-hidden{position:absolute!important; height:1px;width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px)}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .wrap{grid-template-columns:1fr; gap:24px; padding-top:32px}
+      .brand{max-width:unset; text-align:center}
+      .logo{justify-content:center}
+      .tagline{font-size:22px}
+      body{align-items:flex-start}
+    }
+
+    @media (max-width:420px){
+      .logo-word{font-size:44px}
+      .logo-mark{width:56px; height:56px}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main">
+    <section class="brand" aria-label="Facebook brand">
+      <div class="logo" aria-hidden="true">
+        <div class="logo-mark" title="Facebook">
+          <!-- simple f glyph -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.07C22 6.48 17.52 2 11.93 2S1.86 6.48 1.86 12.07c0 5.03 3.69 9.2 8.52 9.93v-7.02H7.78v-2.9h2.6V9.66c0-2.56 1.52-3.97 3.85-3.97 1.12 0 2.29.2 2.29.2v2.52h-1.29c-1.27 0-1.67.79-1.67 1.6v1.92h2.84l-.45 2.9h-2.39V22c4.83-.73 8.52-4.9 8.52-9.93Z"/></svg>
+        </div>
+        <div class="logo-word" aria-label="facebook">facebook</div>
+      </div>
+      <p class="tagline">Facebook helps you connect and share with the people in your life.</p>
+    </section>
+
+    <section>
+      <div class="card" role="region" aria-label="Log in">
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="email">Email address or phone number</label>
+            <input id="email" name="email" type="text" autocomplete="username" required placeholder="Email address or phone number" />
+          </div>
+          <div class="field">
+            <div class="row-between">
+              <label for="password">Password</label>
+              <button type="button" id="togglePwd" class="btn" style="font-size:12px; padding:6px 10px; background:#f2f4f7; color:#1c1e21">Show</button>
+            </div>
+            <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="Password" />
+          </div>
+          <button class="btn btn-primary" type="submit" aria-label="Log in">Log in</button>
+          <a class="forgot" href="#" aria-label="Forgotten password?">Forgotten password?</a>
+          <div class="hr" aria-hidden="true"></div>
+          <div class="create">
+            <button type="button" class="btn btn-secondary" aria-label="Create new account">Create new account</button>
+          </div>
+        </form>
+      </div>
+      <p class="note"> <a href="#">Create a Page</a> for a celebrity, brand or business.</p>
+    </section>
+  </main>
+
+  <script>
+    // Minimal client-side behavior for demo purposes only
+    const form = document.getElementById('loginForm');
+    const email = document.getElementById('email');
+    const pwd = document.getElementById('password');
+    const toggle = document.getElementById('togglePwd');
+
+    toggle.addEventListener('click', () => {
+      const isPw = pwd.type === 'password';
+      pwd.type = isPw ? 'text' : 'password';
+      toggle.textContent = isPw ? 'Hide' : 'Show';
+      pwd.focus();
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Very basic demo validation
+      if(!email.value.trim() || !pwd.value.trim()){
+        alert('Please enter your email/phone and password.');
+        return;
+      }
+      // Demo only: show the captured values (never do this in production)
+      alert('Demo only. Form captured:\nEmail/Phone: ' + email.value + '\nPassword: ' + pwd.value);
+    });
+  </script>
+</body>
+</html>
